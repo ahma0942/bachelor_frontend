@@ -1,0 +1,63 @@
+<app-header [back]="'/User/Projects/'+route.snapshot.paramMap.get('id')" [title]="chatname"></app-header>
+<div class="messages" #messagesField>
+	<img class="message-loader" *ngIf="moreOldMessages" src="{{ url }}/img/message-loader.gif" />
+	<ng-container *ngFor="let message of messages">
+		<div class="message" [class.me]="message.user_id.id === myid">
+			<div class="avi"><img src="{{ url }}/img/avi/{{ message.user_id.avatar }}" /></div>
+			<span class="name">{{ message.user_id.name }}<span class="num">#{{ message.number }}</span></span>
+			<span class="date">{{ message.timestamp * 1000 | date: 'HH:mm' }}</span>
+
+			<div *ngIf="message.type === 1" class="msg">{{ message.message }}</div>
+			<div *ngIf="message.type === 2" class="msg">
+				<ng-container *ngIf="!message.created">
+					<div class="msginner">{{ message.message.substring(0, message.message.lastIndexOf('#')) }}</div>
+					<div class="img">
+						<img src="{{ url }}/img/upload/{{ messageForm.get('project_id').value }}_{{ message.number }}_{{ message.message.split('#').pop() }}"/>
+					</div>
+				</ng-container>
+				<ng-container *ngIf="message.created">
+					<div class="msginner">{{ message.message }}</div>
+					<div class="img">
+						<img src="{{ message.src }}"/>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+		<hr/>
+	</ng-container>
+</div>
+<div class="emojis" *ngIf="showEmojis">
+	<emoji-mart
+			(emojiSelect)="emojiSelected($event)"
+			[isNative]="true"
+			[showPreview]="false"
+			[style]="emojiStyles()"></emoji-mart>
+</div>
+<div class="box" #box>
+	<form [formGroup]="messageForm" (ngSubmit)="sendMessage($event)">
+		<textarea
+				rows="1"
+				placeholder="Send a message..."
+				formControlName="message"
+				(input)="sanitize()"
+				(focus)="showEmojis=false"
+				(keydown.enter)="messageForm.valid || selectedFile?sendMessage($event):''"
+				(keyup.enter)="sanitize()"
+				(keyup.shift)="sanitize()" #textarea></textarea>
+		<i class="submit fas fa-paper-plane" (click)="messageForm.valid || selectedFile?sendMessage($event):''" [class.disabled]="!messageForm.valid && !selectedFile"></i>
+		<div class="attachment" *ngIf="selectedFile">
+			<span class="snapshot"><img src="{{this.selectedFile.src}}"/></span>
+			<div class="filename">{{this.selectedFile.file.name}}</div>
+			<span class="close" (click)="clearUpload()"><img src="{{ url }}/img/close.png"/></span>
+		</div>
+		<div class="bottom_choices">
+			<i class="far fa-grin-beam" (click)="showEmojis=!showEmojis"></i>
+			<i class="far fa-file-alt" (click)="upload.click()"></i>
+			<i class="fas fa-camera" (click)="capture.click()"></i>
+		</div>
+	</form>
+</div>
+<div class="hide">
+	<input type="file" accept="image/*,video/*" (change)="uploadFile(capture)" capture #capture>
+	<input type="file" (change)="uploadFile(upload)" #upload>
+</div>

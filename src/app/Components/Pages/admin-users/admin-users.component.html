@@ -1,0 +1,38 @@
+<table class="table">
+	<thead class="thead-dark">
+	<tr>
+		<th>#</th>
+		<th>Name</th>
+		<th>Email</th>
+		<th>Role</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr *ngFor="let _user of users; let index = index;trackBy:trackByIndex;">
+		<th>{{_user.id}}</th>
+		<td><input type="text" [(ngModel)]="users[index].name" /></td>
+		<td><input type="text" [(ngModel)]="users[index].email" /></td>
+		<td>
+			<select [(ngModel)]="users[index].role_id">
+				<option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
+			</select>
+		</td>
+		<td>
+			<button class="btn btn-warning" (click)="updateUser(index)">Update</button>
+			<button class="btn btn-danger" (click)="deleteUser(index)">Delete</button>
+		</td>
+	</tr>
+	<tr [formGroup]="addUserForm">
+		<th></th>
+		<td><input type="text" formControlName="name" /></td>
+		<td><input type="text" formControlName="email" /></td>
+		<td>
+			<select formControlName="role_id">
+				<option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option>
+			</select>
+		</td>
+		<td><button class="btn btn-primary" (click)="addUser()" [disabled]="!addUserForm.valid">Add</button></td>
+	</tr>
+	</tbody>
+</table>

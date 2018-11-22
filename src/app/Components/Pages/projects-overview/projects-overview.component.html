@@ -1,0 +1,6 @@
+<div class="item" (click)="redirect('/Chat/'+route.snapshot.paramMap.get('id'))">
+	<i class="icon fas fa-comments"></i> Chat
+</div>
+<div class="item" (click)="redirect('/User/Projects/'+route.snapshot.paramMap.get('id')+'/Documents/')">
+	<i class="icon fas fa-file-alt"></i> Documents
+</div>

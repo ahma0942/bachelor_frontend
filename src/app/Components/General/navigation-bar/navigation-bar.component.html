@@ -1,0 +1,11 @@
+<table id="menu">
+	<ng-container *ngFor="let route of routes">
+		<ng-container *ngIf="route.data && route.data.logged === true && route.data.title">
+			<tr>
+				<td *ngFor="let page of route.children" (mousedown)="redirect('/User/'+page.path)" [class.active]="page.path == currentRoute">
+					<i class="fas fa-{{icons[[page.data.title]]}}"></i>
+				</td>
+			</tr>
+		</ng-container>
+	</ng-container>
+</table>

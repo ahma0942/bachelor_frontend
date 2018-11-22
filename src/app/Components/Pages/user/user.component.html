@@ -1,0 +1,5 @@
+<app-header [title]="url.split('/')[2]" [back]="url.split('/').length>3 ? url.split('/').slice(0,-1).join('/') : ''"></app-header>
+<div id="router">
+	<router-outlet></router-outlet>
+</div>
+<app-navigation-bar></app-navigation-bar>

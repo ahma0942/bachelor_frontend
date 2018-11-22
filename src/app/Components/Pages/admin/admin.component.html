@@ -1,0 +1,9 @@
+<div id="admin" *ngIf="router.url == '/User/Admin'">
+	<div class="item" (click)="redirect('/User/Admin/Projects/')">
+		<i class="icon fas fa-book"></i> Projects
+	</div>
+	<div class="item" (click)="redirect('/User/Admin/Users/')">
+		<i class="icon fas fa-users"></i> Users
+	</div>
+</div>
+<router-outlet></router-outlet>

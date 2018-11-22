@@ -1,0 +1,35 @@
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th>#</th>
+			<th>Name</th>
+			<th>Admin</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let _project of projects; let index = index;trackBy:trackByIndex;">
+			<th>{{_project.id}}</th>
+			<td><input type="text" [(ngModel)]="projects[index].name" /></td>
+			<td>
+				<select [(ngModel)]="projects[index].admin.id">
+					<option *ngFor="let user of users" [value]="user.id">{{user.id}} - {{user.name}}</option>
+				</select>
+			</td>
+			<td>
+				<button class="btn btn-warning" (click)="updateProject(index)">Update</button>
+				<button class="btn btn-danger" (click)="deleteProject(index)">Delete</button>
+			</td>
+		</tr>
+		<tr [formGroup]="addProjectForm">
+			<th></th>
+			<td><input type="text" formControlName="name" /></td>
+			<td>
+				<select formControlName="admin">
+					<option *ngFor="let user of users" [value]="user.id">{{user.id}} - {{user.name}}</option>
+				</select>
+			</td>
+			<td><button class="btn btn-primary" (click)="addProject()" [disabled]="!addProjectForm.valid">Add</button></td>
+		</tr>
+	</tbody>
+</table>

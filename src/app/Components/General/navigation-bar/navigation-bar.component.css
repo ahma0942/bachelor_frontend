@@ -1,0 +1,27 @@
+#menu {
+	position:fixed;
+	bottom:0;
+	height:50px;
+	width:100%;
+	text-align:center;
+	table-layout : fixed;
+	cursor:pointer;
+}
+
+#menu td {
+	background-color:rgb(23,32,74);
+}
+
+#menu .active {
+	opacity:0.95;
+}
+
+#menu span {
+	color:rgb(125,234,27);
+}
+
+#menu i {
+	font-size:25px;
+	color:rgb(125,234,27);
+	vertical-align:bottom;
+}

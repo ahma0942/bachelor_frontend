@@ -1,0 +1,5 @@
+<div id="projects">
+	<div *ngFor="let project of projects" class="item" (click)="redirect('/User/Projects/'+project.project_id.id)">
+		<img src="{{ url }}/img/gavi/{{ project.project_id.avatar }}" /> {{ project.project_id.name }}
+	</div>
+</div>

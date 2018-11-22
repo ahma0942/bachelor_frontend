@@ -1,0 +1,7 @@
+<br/>
+<b>Search:</b> <input type="text" [ngModel]="search"/><br/>
+<b>Result:</b><br/>
+<ng-container *ngFor="let message of results">
+	<div>#{{ message.number }} {{ message.user_id.name }}: {{ message.message }}</div>
+</ng-container>
+<br/><br/>

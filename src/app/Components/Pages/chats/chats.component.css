@@ -1,0 +1,163 @@
+.messages {
+	position:absolute;
+	overflow-x:hidden;
+	overflow-y:auto;
+	width:100%;
+	max-height:calc(100% - 127px);
+	margin-top:50px;
+}
+
+.messages .message {
+	word-wrap:break-word;
+}
+
+.box {
+	position:absolute;
+	bottom:0;
+	width:100%;
+	min-height:70px;
+	max-height:185px;
+	border-top:1px solid grey;
+	background-color:white;
+	overflow:hidden;
+}
+
+textarea {
+	position:relative;
+	width:calc(100% - 40px);
+	min-height:35px;
+	max-height:150px;
+	padding:5px;
+	resize:none;
+	border:none;
+	outline:none;
+}
+
+.bottom_choices {
+	position:relative;
+	left:5px;
+	bottom:5px;
+	width:100%;
+	height:35px;
+	font-size:30px;
+	color:rgb(23,32,74);
+}
+
+.bottom_choices i {
+	margin-right:5px;
+}
+
+.submit {
+	position:absolute;
+	font-size:30px;
+	top:5px;
+	right:5px;
+}
+
+.submit:not(.disabled) {
+	color:rgb(23,32,74);
+}
+
+.submit.disabled {
+	color:grey;
+}
+
+.emojis {
+	width:100%;
+	position:fixed;
+	background-color:white;
+}
+
+.messages img.message-loader {
+	width: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+div.hide {
+	display:none;
+}
+
+/****************MESSAGE STYLES***********/
+.message {
+	display:inline-block;
+	width:100%;
+	margin:5px;
+}
+
+.message.me {
+
+}
+
+hr {
+	margin:0;
+}
+
+.message .avi {
+	position:relative;
+	display:inline-block;
+	left:0;
+}
+
+.message .name {
+	font-weight:bold;
+	position:relative;
+	left:5px;
+}
+
+.message .date {
+	position:absolute;
+	right:10px;
+}
+
+.message .num {
+	color:grey;
+	font-size:12px;
+}
+
+.message .msg {
+	margin-left:35px;
+	margin-right:10px;
+}
+
+.message .msg .img {
+	width:100%;
+	max-height:400px;
+}
+
+.message .msg .img img {
+	max-width: 100%;
+	max-height: 400px;
+}
+
+div.attachment {
+	position:relative;
+	left:5px;
+	height:40px;
+	width:100%;
+}
+
+div.attachment .snapshot, div.attachment .snapshot img {
+	max-width:50px;
+	max-height:40px;
+}
+
+div.attachment .filename {
+	display:inline-block;
+	width:calc(100% - 80px);
+	text-overflow:ellipsis;
+	overflow:hidden;
+	white-space:nowrap;
+	position:relative;
+	left:5px;
+	top:10px;
+}
+
+div.attachment span.close, div.attachment span.close img {
+	width:30px;
+	height:30px;
+	position:absolute;
+	top:5px;
+	right:5px;
+}
