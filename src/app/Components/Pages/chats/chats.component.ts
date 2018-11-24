@@ -4,6 +4,7 @@ import {first} from 'rxjs/operators';
 import {ChatsService} from '@services/chats/chats.service';
 import {FormBuilder, Validators} from '@angular/forms';
 import {environment} from '@env/environment';
+import Message from '@models/message';
 
 class ImageSnippet {
 	constructor(public src: string, public file: File) {}
@@ -28,7 +29,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
 		project_id: [this.route.snapshot.paramMap.get('id'), Validators.compose([Validators.required])],
 	});
 	public showEmojis = false;
-	public messages = [];
+	public messages: Message[] = [];
 	public chatname = '';
 	public moreOldMessages = true;
 	public selectedFile: ImageSnippet;
@@ -105,7 +106,33 @@ export class ChatsComponent implements OnInit, OnDestroy {
 	getNewMessages() {
 		this.chatsService.getNewMessages(this.route.snapshot.paramMap.get('id'), this.newtimestamp).pipe(first()).subscribe(
 			data => {
-				this.messages = this.messages.concat(data.records);
+				for (const i in data) {
+					if (!data.hasOwnProperty(i)) {
+						continue;
+					}
+
+					if (data[i].timestamp > data[i].changed) {
+						this.messages.push(data[i]);
+					} else {
+						for (const m in this.messages) {
+							if (this.messages[m].id === data[i].id) {
+								if (data[i].deleted) {
+									this.messages.splice(parseInt(m, 10), 1);
+								} else {
+									this.messages[m] = data[i];
+								}
+							}
+						}
+					}
+				}
+				if (this.autoScroll) {
+					setTimeout(() => {
+						this.messages.concat(data);
+						this.messagesField.nativeElement.scrollTop = this.messagesField.nativeElement.scrollHeight;
+					}, 10);
+				} else {
+					this.messages.concat(data);
+				}
 			},
 			error => {
 				console.log('failure');
@@ -179,7 +206,9 @@ export class ChatsComponent implements OnInit, OnDestroy {
 		}, 10);
 
 		this.chatsService.sendMessage(this.messageForm.value, this.selectedFile).pipe(first()).subscribe(
-			data => { },
+			data => {
+				this.messages[this.messages.length - 1].id = data;
+			},
 			error => {
 				console.log('failure');
 				this.messages.pop();
@@ -202,7 +231,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
 					scrollTop = this.messagesField.nativeElement.scrollTop;
 					height = this.messagesField.nativeElement.scrollHeight;
 				}
-				this.messages.splice(0, 0, ...data.records.reverse());
+				this.messages.splice(0, 0, ...data.reverse());
 				this.page++;
 
 				setTimeout(() => {
@@ -213,7 +242,7 @@ export class ChatsComponent implements OnInit, OnDestroy {
 					}
 				}, 50);
 
-				if (data.records.length === 30) {
+				if (data.length === 30) {
 					this.messagesField.nativeElement.addEventListener('scroll', this.scrolling, true);
 				} else {
 					this.moreOldMessages = false;

@@ -22,7 +22,8 @@ import { AdminProjectComponent } from '@components/Pages/admin-project/admin-pro
 import { AdminUsersComponent } from '@components/Pages/admin-users/admin-users.component';
 import { LogoutComponent } from '@components/Pages/logout/logout.component';
 import { HeaderComponent } from '@components/General/header/header.component';
-import { PickerModule } from '@ctrl/ngx-emoji-mart'
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ClickMenuComponent } from './Components/General/click-menu/click-menu.component';
 
 @NgModule({
 	declarations: [
@@ -42,7 +43,8 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart'
 		AdminProjectComponent,
 		AdminUsersComponent,
 		LogoutComponent,
-		HeaderComponent
+		HeaderComponent,
+		ClickMenuComponent
 	],
 	imports: [
 		BrowserModule,

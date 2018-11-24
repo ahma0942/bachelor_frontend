@@ -2,28 +2,30 @@
 <div class="messages" #messagesField>
 	<img class="message-loader" *ngIf="moreOldMessages" src="{{ url }}/img/message-loader.gif" />
 	<ng-container *ngFor="let message of messages">
-		<div class="message" [class.me]="message.user_id.id === myid">
-			<div class="avi"><img src="{{ url }}/img/avi/{{ message.user_id.avatar }}" /></div>
-			<span class="name">{{ message.user_id.name }}<span class="num">#{{ message.number }}</span></span>
-			<span class="date">{{ message.timestamp * 1000 | date: 'HH:mm' }}</span>
+		<ng-container *ngIf="!message.deleted">
+			<app-click-menu class="message" [class.me]="message.user_id.id === myid" [Message]="message">
+				<div class="avi"><img src="{{ url }}/img/avi/{{ message.user_id.avatar }}" /></div>
+				<span class="name">{{ message.user_id.name }}<span class="num">#{{ message.number }}</span></span>
+				<span class="date">{{ message.timestamp * 1000 | date: 'HH:mm' }}</span>
 
-			<div *ngIf="message.type === 1" class="msg">{{ message.message }}</div>
-			<div *ngIf="message.type === 2" class="msg">
-				<ng-container *ngIf="!message.created">
-					<div class="msginner">{{ message.message.substring(0, message.message.lastIndexOf('#')) }}</div>
-					<div class="img">
-						<img src="{{ url }}/img/upload/{{ messageForm.get('project_id').value }}_{{ message.number }}_{{ message.message.split('#').pop() }}"/>
-					</div>
-				</ng-container>
-				<ng-container *ngIf="message.created">
-					<div class="msginner">{{ message.message }}</div>
-					<div class="img">
-						<img src="{{ message.src }}"/>
-					</div>
-				</ng-container>
-			</div>
-		</div>
-		<hr/>
+				<div *ngIf="message.type === 1" class="msg">{{ message.message }}</div>
+				<div *ngIf="message.type === 2" class="msg">
+					<ng-container *ngIf="!message.created">
+						<div class="msginner">{{ message.message.substring(0, message.message.lastIndexOf('#')) }}</div>
+						<div class="img">
+							<img src="{{ url }}/img/upload/{{ messageForm.get('project_id').value }}_{{ message.number }}_{{ message.message.split('#').pop() }}"/>
+						</div>
+					</ng-container>
+					<ng-container *ngIf="message.created">
+						<div class="msginner">{{ message.message }}</div>
+						<div class="img">
+							<img src="{{ message.src }}"/>
+						</div>
+					</ng-container>
+				</div>
+			</app-click-menu>
+			<hr/>
+		</ng-container>
 	</ng-container>
 </div>
 <div class="emojis" *ngIf="showEmojis">
