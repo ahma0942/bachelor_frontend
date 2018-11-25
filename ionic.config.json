@@ -1,0 +1,7 @@
+{
+  "name": "G2W_Ionic",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

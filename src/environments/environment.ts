@@ -4,8 +4,8 @@
 
 export const environment = {
 	production: false,
-	URL: 'http://localhost/Get2Work/Backend',
-	API: 'http://localhost/Get2Work/Backend/api'
+	URL: 'http://192.168.0.5/Get2Work/Backend',
+	API: 'http://192.168.0.5/Get2Work/Backend/api'
 };
 
 /*
