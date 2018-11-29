@@ -1,0 +1,14 @@
+div.profile {
+	padding:5px;
+}
+
+div.avatar img {
+	display:block;
+	margin:auto;
+	max-width:50%;
+	border-radius:100px;
+}
+
+input[type=file] {
+	display:none;
+}

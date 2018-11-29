@@ -98,6 +98,14 @@ hr {
 	position:relative;
 	display:inline-block;
 	left:0;
+	width:30px;
+	height:30px;
+}
+
+.message .avi img {
+	max-width:30px;
+	max-height:30px;
+	border-radius:100px;
 }
 
 .message .name {

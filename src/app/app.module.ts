@@ -23,7 +23,9 @@ import { AdminUsersComponent } from '@components/Pages/admin-users/admin-users.c
 import { LogoutComponent } from '@components/Pages/logout/logout.component';
 import { HeaderComponent } from '@components/General/header/header.component';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
-import { ClickMenuComponent } from './Components/General/click-menu/click-menu.component';
+import { ClickMenuComponent } from '@components/General/click-menu/click-menu.component';
+import { AlertComponent } from '@components/General/alert/alert.component';
+import {AlertService} from '@services/alert/alert.service';
 
 @NgModule({
 	declarations: [
@@ -44,7 +46,8 @@ import { ClickMenuComponent } from './Components/General/click-menu/click-menu.c
 		AdminUsersComponent,
 		LogoutComponent,
 		HeaderComponent,
-		ClickMenuComponent
+		ClickMenuComponent,
+		AlertComponent
 	],
 	imports: [
 		BrowserModule,
@@ -54,11 +57,14 @@ import { ClickMenuComponent } from './Components/General/click-menu/click-menu.c
 		HttpClientModule,
 		PickerModule
 	],
-	providers: [{
-		provide: HTTP_INTERCEPTORS,
-		useClass: APIInterceptor,
-		multi: true,
-	}],
+	providers: [
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: APIInterceptor,
+			multi: true,
+		},
+		AlertService
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

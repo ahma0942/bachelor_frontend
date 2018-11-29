@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import Project from '@models/project';
 import User from '@models/user';
 import {AdminService} from '@services/admin/admin.service';
 import {first} from 'rxjs/operators';
-import Role, {Roles} from '@models/role';
+import {Roles} from '@models/role';
 
 @Component({
 	selector: 'app-admin-users',
