@@ -20,20 +20,20 @@ if (url.searchParams.get('token') && url.searchParams.get('token') !== '') {
 const routes: Routes = [
 	{path: 'Login', component: LoginComponent, data: { title: 'Login', logged: false }},
 	{path: 'User', component: UserComponent, data: { title: 'User', logged: true }, children: [
-		{path: 'Profile', component: ProfileComponent, data: { title: 'Profile' }},
+		{path: 'Profile', data: { title: 'Profile' }, component: ProfileComponent},
 		{path: 'Projects', data: { title: 'Projects' }, children: [
 			{path: '', component: ProjectsComponent},
 			{path: ':id', children: [
 				{path: '', component: ProjectsOverviewComponent},
 			]},
 		]},
-		{path: 'Settings', component: SettingsComponent, data: { title: 'Settings' }},
-		{path: 'Admin', data: { title: 'Admin' }, children: [
+		{path: 'Settings', data: { title: 'Settings' }, component: SettingsComponent},
+		{path: 'Admin', data: { title: 'Admin', role_id: [2] }, children: [
 			{path: '', component: AdminComponent},
 			{path: 'Projects', component: AdminProjectComponent},
 			{path: 'Users', component: AdminUsersComponent}
 		]},
-		{path: 'Logout', component: LogoutComponent, data: { title: 'Logout' }},
+		{path: 'Logout', component: LogoutComponent},
 	]},
 	{path: 'Chat/:id', data: { logged: true }, children: [
 		{path: '', component: ChatsComponent}

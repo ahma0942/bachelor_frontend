@@ -12,6 +12,7 @@ export class ClickMenuComponent implements OnInit {
 	@Input() Message: Message;
 	@Output() MessageChange = new EventEmitter<Message>();
 	@ViewChild('main') Main: ElementRef;
+	private user = JSON.parse(localStorage.getItem('user'));
 
 	constructor(private chatsService: ChatsService) { }
 
@@ -19,7 +20,9 @@ export class ClickMenuComponent implements OnInit {
 	}
 
 	ShowMenu() {
-		this.Main.nativeElement.style.display = 'initial';
+		if (this.user.role_id === 2) {
+			this.Main.nativeElement.style.display = 'initial';
+		}
 	}
 
 	delete() {

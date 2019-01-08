@@ -2,9 +2,13 @@
 	<ng-container *ngFor="let route of routes">
 		<ng-container *ngIf="route.data && route.data.logged === true && route.data.title">
 			<tr>
-				<td *ngFor="let page of route.children" (mousedown)="redirect('/User/'+page.path)" [class.active]="page.path == currentRoute">
-					<i class="fas fa-{{icons[[page.data.title]]}}"></i>
-				</td>
+				<ng-container *ngFor="let page of route.children">
+					<ng-container *ngIf="IsAllowed(page.data)">
+						<td (mousedown)="redirect('/User/'+page.path)" [class.active]="page.path == currentRoute">
+							<i class="fas fa-{{icons[[page.data.title]]}}"></i>
+						</td>
+					</ng-container>
+				</ng-container>
 			</tr>
 		</ng-container>
 	</ng-container>
