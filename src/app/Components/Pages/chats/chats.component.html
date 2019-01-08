@@ -56,6 +56,7 @@
 			<i class="far fa-grin-beam" (click)="showEmojis=!showEmojis"></i>
 			<i class="far fa-file-alt" (click)="upload.click()"></i>
 			<i class="fas fa-camera" (click)="capture.click()"></i>
+			<i class="search fas fa-search" [class.searching]="searching" (click)="changeSearch()"></i>
 		</div>
 	</form>
 </div>

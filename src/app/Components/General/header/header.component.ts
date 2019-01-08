@@ -9,10 +9,12 @@ import {Router} from '@angular/router';
 export class HeaderComponent {
 	@Input() title: string;
 	@Input() back: string;
+	@Input() icon: string;
+	@Input() next: string;
 
 	constructor(private router: Router) { }
 
-	redirect() {
-		this.router.navigate([this.back]);
+	redirect(redir) {
+		this.router.navigate([redir]);
 	}
 }

@@ -43,4 +43,10 @@ export class ChatsService {
 			return response;
 		}));
 	}
+
+	search(id, str, page = 1): Observable<Message[]> {
+		return this.http.get<Record<Message[]>>(`/Messages/${id}/Search/${str}/Page/${page}`).pipe(map(response => {
+			return response.records;
+		}));
+	}
 }

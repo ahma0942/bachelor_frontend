@@ -7,7 +7,6 @@ import {ProfileComponent} from '@components/Pages/profile/profile.component';
 import {UserComponent} from '@components/Pages/user/user.component';
 import {ChatsComponent} from '@components/Pages/chats/chats.component';
 import {SettingsComponent} from '@components/Pages/settings/settings.component';
-import {SearchComponent} from '@components/Pages/search/search.component';
 import {ProjectsOverviewComponent} from '@components/Pages/projects-overview/projects-overview.component';
 import {AdminProjectComponent} from '@components/Pages/admin-project/admin-project.component';
 import {AdminUsersComponent} from '@components/Pages/admin-users/admin-users.component';
@@ -37,8 +36,7 @@ const routes: Routes = [
 		{path: 'Logout', component: LogoutComponent, data: { title: 'Logout' }},
 	]},
 	{path: 'Chat/:id', data: { logged: true }, children: [
-		{path: '', component: ChatsComponent},
-		{path: 'Search', component: SearchComponent}
+		{path: '', component: ChatsComponent}
 	]},
 	{path: '**', redirectTo: '/Login'}
 ];

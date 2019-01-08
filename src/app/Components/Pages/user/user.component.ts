@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
-import { Push, PushObject, PushOptions } from '@ionic-native/push';
+// import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import {AppService} from '@services/app/app.service';
 
 @Component({

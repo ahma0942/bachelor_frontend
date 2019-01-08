@@ -34,12 +34,15 @@ export class ChatsComponent implements OnInit, OnDestroy {
 	public moreOldMessages = true;
 	public selectedFile: ImageSnippet;
 	public autoScroll = true;
+	public searching = false;
+
 	private page = 1;
 	private timestamp = Math.floor(Date.now() / 1000);
 	private newtimestamp = Math.floor(Date.now() / 1000);
 	private user = JSON.parse(localStorage.getItem('user'));
 	private delay = 3;
 	private timer;
+	private searchTimer;
 
 	constructor(private chatsService: ChatsService,
 				private router: Router,
@@ -82,7 +85,11 @@ export class ChatsComponent implements OnInit, OnDestroy {
 		const msg = this.messagesField.nativeElement;
 		if (msg.scrollTop === 0) {
 			msg.removeEventListener('scroll', this.scrolling, true);
-			this.loadMessages();
+			if (!this.searching) {
+				this.loadMessages();
+			} else {
+				this.search();
+			}
 		}
 		this.autoScroll = (msg.scrollTop + 100 > msg.scrollHeight - msg.offsetHeight);
 	}
@@ -92,6 +99,38 @@ export class ChatsComponent implements OnInit, OnDestroy {
 			message: this.messageForm.get('message').value + event.emoji.native
 		});
 		this.sanitize();
+	}
+
+	search(scrollbottom = false) {
+		this.chatsService.search(
+			this.route.snapshot.paramMap.get('id'), this.messageForm.get('message').value, this.page).pipe(first()).subscribe(
+			data => {
+				let scrollTop, height;
+				if (!scrollbottom) {
+					scrollTop = this.messagesField.nativeElement.scrollTop;
+					height = this.messagesField.nativeElement.scrollHeight;
+				}
+				this.messages.splice(0, 0, ...data.reverse());
+				this.page++;
+
+				setTimeout(() => {
+					if (scrollbottom) {
+						this.messagesField.nativeElement.scrollTop = this.messagesField.nativeElement.scrollHeight;
+					} else {
+						this.messagesField.nativeElement.scrollTop = scrollTop + this.messagesField.nativeElement.scrollHeight - height;
+					}
+				}, 50);
+
+				if (data.length === 30) {
+					this.messagesField.nativeElement.addEventListener('scroll', this.scrolling, true);
+				} else {
+					this.moreOldMessages = false;
+				}
+			},
+			error => {
+				console.log('failure');
+			}
+		);
 	}
 
 	emojiStyles() {
@@ -140,7 +179,31 @@ export class ChatsComponent implements OnInit, OnDestroy {
 		);
 	}
 
+	changeSearch() {
+		this.searching = !this.searching;
+		this.messages = [];
+		this.page = 1;
+		if (this.searching) {
+			clearInterval(this.timer);
+			this.search(true);
+		} else {
+			this.loadMessages(true);
+			this.timer = setInterval(() => {
+				this.getNewMessages();
+				this.newtimestamp += this.delay;
+			}, this.delay * 1000);
+		}
+	}
+
 	sanitize() {
+		if (this.searching) {
+			clearTimeout(this.searchTimer);
+			this.searchTimer = setTimeout(() => {
+				this.messages = [];
+				this.page = 1;
+				this.search();
+			}, 1000);
+		}
 		const txt = this.textarea.nativeElement;
 		const oldH = parseInt(txt.style.height.split('px')[0], 10);
 		txt.style.height = 'auto';

@@ -16,7 +16,6 @@ import {APIInterceptor} from '@services/http/APIInterceptor';
 import { UserComponent } from '@components/Pages/user/user.component';
 import { ChatsComponent } from '@components/Pages/chats/chats.component';
 import { SettingsComponent } from '@components/Pages/settings/settings.component';
-import { SearchComponent } from '@components/Pages/search/search.component';
 import { ProjectsOverviewComponent } from '@components/Pages/projects-overview/projects-overview.component';
 import { AdminProjectComponent } from '@components/Pages/admin-project/admin-project.component';
 import { AdminUsersComponent } from '@components/Pages/admin-users/admin-users.component';
@@ -40,7 +39,6 @@ import {AlertService} from '@services/alert/alert.service';
 		UserComponent,
 		ChatsComponent,
 		SettingsComponent,
-		SearchComponent,
 		ProjectsOverviewComponent,
 		AdminProjectComponent,
 		AdminUsersComponent,

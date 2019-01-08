@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {first} from 'rxjs/operators';
 import {ProfileService} from '@services/profile/profile.service';
 import Profile from '@models/profile';
@@ -15,21 +15,19 @@ class ImageSnippet {
 	styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+	@ViewChild('capture') capture: ElementRef;
 	public profile: Profile = {};
 	public avatar = null;
 	public url = environment.URL;
+	private ls = JSON.parse(localStorage.getItem('user'));
 
 	constructor(private profileService: ProfileService, private alertService: AlertService) { }
 
 	ngOnInit() {
-		this.profileService.getProfile().pipe(first()).subscribe(
-			data => {
-				this.profile = data;
-			},
-			error => {
-				console.log('failure');
-			}
-		);
+		this.profile.avatar = this.ls.avatar;
+		this.profile.name = this.ls.name;
+		this.profile.email = this.ls.email;
+		this.profile.phone = this.ls.phone;
 	}
 
 	uploadFile(imageInput: any) {
@@ -54,6 +52,14 @@ export class ProfileComponent implements OnInit {
 		this.profileService.saveProfile(this.profile.name, this.profile.email, this.profile.phone, this.avatar).pipe(first()).subscribe(
 			data => {
 				this.success('Profile Updated');
+				this.capture.nativeElement.value = '';
+				this.avatar = '';
+
+				this.ls.avatar = data.avatar ? data.avatar : this.ls.avatar;
+				this.ls.name = data.name ? data.name : this.ls.name;
+				this.ls.email = data.email ? data.email : this.ls.email;
+				this.ls.phone = data.phone ? data.phone : this.ls.phone;
+				localStorage.setItem('user', JSON.stringify(this.ls));
 			},
 			error => {
 				this.error('An error occoured while trying to update the profile');

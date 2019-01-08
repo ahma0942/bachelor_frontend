@@ -169,3 +169,12 @@ div.attachment span.close, div.attachment span.close img {
 	top:5px;
 	right:5px;
 }
+
+.search {
+	position:absolute;
+	right:5px;
+}
+
+.searching {
+	color:rgb(125,234,27);
+}
