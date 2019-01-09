@@ -4,7 +4,6 @@ import {map} from 'rxjs/operators';
 import Project from '@models/project';
 import User from '@models/user';
 import Response from '@models/response';
-import Role from '@models/role';
 
 @Injectable({
   providedIn: 'root'
@@ -52,7 +51,7 @@ export class AdminService {
 	}
 
 	getUserProjects(id) {
-		return this.http.get(`/Admin/Users/${id}/Projects`).pipe(map(response => {
+		return this.http.get<Response<any>>(`/Admin/Users/${id}/Projects`).pipe(map(response => {
 			return response.records;
 		}));
 	}
