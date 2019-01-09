@@ -4,8 +4,8 @@
 
 export const environment = {
 	production: false,
-	URL: 'http://quickconnect.dk/Get2Work/Backend',
-	API: 'http://quickconnect.dk/Get2Work/Backend/api'
+	URL: 'http://localhost/Get2Work/Backend',
+	API: 'http://localhost/Get2Work/Backend/api'
 };
 
 /*

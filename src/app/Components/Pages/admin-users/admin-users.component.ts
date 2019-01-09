@@ -4,6 +4,7 @@ import User from '@models/user';
 import {AdminService} from '@services/admin/admin.service';
 import {first} from 'rxjs/operators';
 import {Roles} from '@models/role';
+import {Router} from '@angular/router';
 
 @Component({
 	selector: 'app-admin-users',
@@ -19,7 +20,7 @@ export class AdminUsersComponent implements OnInit {
 	public users: User[] = [];
 	public roles = [];
 
-	constructor(private fb: FormBuilder, private adminService: AdminService) { }
+	constructor(private fb: FormBuilder, private adminService: AdminService, private router: Router) { }
 
 	ngOnInit() {
 		this.adminService.getUsers().pipe(first()).subscribe(
@@ -85,5 +86,9 @@ export class AdminUsersComponent implements OnInit {
 
 	trackByIndex(index: number, obj: any): any {
 		return index;
+	}
+
+	redirect(path) {
+		this.router.navigate([path]);
 	}
 }

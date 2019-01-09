@@ -1,0 +1,27 @@
+<table class="table">
+	<thead class="thead-dark">
+	<tr>
+		<th>#</th>
+		<th>Name</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr *ngFor="let project of userProjects; let index = index">
+		<th>{{project.project_id.id}}</th>
+		<td>{{project.project_id.name}}</td>
+		<td>
+			<button class="btn btn-danger" (click)="removeProject(index)">Remove</button>
+		</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td>
+			<select [(ngModel)]="selectedProject">
+				<option *ngFor="let project of projects; let index = index" [value]="project.id" [ngValue]="index">{{project.name}}</option>
+			</select>
+		</td>
+		<td><button class="btn btn-primary" (click)="addProject()">Add</button></td>
+	</tr>
+	</tbody>
+</table>

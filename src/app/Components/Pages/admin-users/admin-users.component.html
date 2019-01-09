@@ -21,6 +21,7 @@
 		<td>
 			<button class="btn btn-warning" (click)="updateUser(index)">Update</button>
 			<button class="btn btn-danger" (click)="deleteUser(index)">Delete</button>
+			<button class="btn btn-primary" (click)="redirect('/User/Admin/Users/'+_user.id)">Manage</button>
 		</td>
 	</tr>
 	<tr [formGroup]="addUserForm">

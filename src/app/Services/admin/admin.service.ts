@@ -51,6 +51,24 @@ export class AdminService {
 		}));
 	}
 
+	getUserProjects(id) {
+		return this.http.get(`/Admin/Users/${id}/Projects`).pipe(map(response => {
+			return response.records;
+		}));
+	}
+
+	removeProjectFromUser(userid, projectid) {
+		return this.http.delete(`/Admin/Users/${userid}/Projects/${projectid}`).pipe(map(response => {
+			return response;
+		}));
+	}
+
+	addProjectToUser(userid, projectid) {
+		return this.http.post(`/Admin/Users/${userid}/Projects/${projectid}`, {}).pipe(map(response => {
+			return response;
+		}));
+	}
+
 	addUser(user: User) {
 		return this.http.post<any>(`/Admin/Users`, {
 			name: user.name,

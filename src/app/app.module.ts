@@ -25,6 +25,7 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClickMenuComponent } from '@components/General/click-menu/click-menu.component';
 import { AlertComponent } from '@components/General/alert/alert.component';
 import {AlertService} from '@services/alert/alert.service';
+import { AdminUserAddGroupComponent } from './Components/Pages/admin-user-add-group/admin-user-add-group.component';
 
 @NgModule({
 	declarations: [
@@ -45,7 +46,8 @@ import {AlertService} from '@services/alert/alert.service';
 		LogoutComponent,
 		HeaderComponent,
 		ClickMenuComponent,
-		AlertComponent
+		AlertComponent,
+		AdminUserAddGroupComponent
 	],
 	imports: [
 		BrowserModule,

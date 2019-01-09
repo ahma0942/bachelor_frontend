@@ -11,6 +11,7 @@ import {ProjectsOverviewComponent} from '@components/Pages/projects-overview/pro
 import {AdminProjectComponent} from '@components/Pages/admin-project/admin-project.component';
 import {AdminUsersComponent} from '@components/Pages/admin-users/admin-users.component';
 import {LogoutComponent} from '@components/Pages/logout/logout.component';
+import {AdminUserAddGroupComponent} from '@app/Components/Pages/admin-user-add-group/admin-user-add-group.component';
 
 const url = new URL(window.location.href);
 if (url.searchParams.get('token') && url.searchParams.get('token') !== '') {
@@ -31,7 +32,10 @@ const routes: Routes = [
 		{path: 'Admin', data: { title: 'Admin', role_id: [2] }, children: [
 			{path: '', component: AdminComponent},
 			{path: 'Projects', component: AdminProjectComponent},
-			{path: 'Users', component: AdminUsersComponent}
+			{path: 'Users', children: [
+				{path: '', component: AdminUsersComponent},
+				{path: ':id', component: AdminUserAddGroupComponent}
+			]}
 		]},
 		{path: 'Logout', component: LogoutComponent},
 	]},

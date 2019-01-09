@@ -18,7 +18,13 @@ export class ProjectsComponent implements OnInit {
 	ngOnInit() {
 		this.projectsService.getProjects().pipe(first()).subscribe(
 			data => {
-				console.log('success');
+				let i = data.length;
+				while (i--) {
+					if (data[i].project_id.deleted) {
+						data.splice(i, 1);
+					}
+					this.projects.filter((e, index) => e.name === data[i].project_id.name ? this.projects.splice(index, 1) : '' );
+				}
 				this.projects = data;
 			},
 			error => {
