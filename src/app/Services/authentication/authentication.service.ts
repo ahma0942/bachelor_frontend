@@ -14,6 +14,12 @@ export class AuthenticationService {
 		}));
 	}
 
+	changePassword(oldpass, newpass, confpass) {
+		return this.http.put<any>(`/ChangePassword`, { oldpass: oldpass, newpass: newpass, confpass: confpass }).pipe(map(response => {
+			return true;
+		}));
+	}
+
 	logout() {
 		localStorage.removeItem('user');
 		this.router.navigate(['/Login']);

@@ -1,1 +1,7 @@
+<form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+	<label>Old Password: <input type="password" formControlName="oldpass"></label><br/>
+	<label>New Password: <input type="password" formControlName="newpass"></label><br/>
+	<label>Confirm Password: <input type="password" formControlName="confpass"></label><br/>
+	<button type="submit" [disabled]="!changePasswordForm.valid">Change Password</button>
+</form><br/>
 <button (click)="redirect('/User/Logout')">Logout</button>
