@@ -1,5 +1,6 @@
 <app-header [title]="'Login'"></app-header>
 <div class="login">
+	<app-alert></app-alert>
 	<form [formGroup]="loginForm" (ngSubmit)="login()">
 		<label>Email: <input type="email" formControlName="email"></label><br/>
 		<label>Password: <input type="password" formControlName="password"></label><br/>
